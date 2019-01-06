@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biye.sheji.dao.FactoryRepairMapper">
+  <resultMap id="BaseResultMap" type="com.biye.sheji.entity.FactoryRepair">
+    <id column="REPAIR_ID" jdbcType="INTEGER" property="repairId" />
+    <result column="EQU_ID" jdbcType="INTEGER" property="equId" />
+    <result column="PAETS_ID" jdbcType="INTEGER" property="paetsId" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="REPAIR_MARK" jdbcType="VARCHAR" property="repairMark" />
+    <result column="REPAIR_ISPASS" jdbcType="VARCHAR" property="repairIspass" />
+    <result column="REPAIR_START_TIME" jdbcType="TIMESTAMP" property="repairStartTime" />
+    <result column="REPAIR_END_TIME" jdbcType="TIMESTAMP" property="repairEndTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    REPAIR_ID, EQU_ID, PAETS_ID, USER_ID, REPAIR_MARK, REPAIR_ISPASS, REPAIR_START_TIME, 
+    REPAIR_END_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from factory_repair
+    where REPAIR_ID = #{repairId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from factory_repair
+    where REPAIR_ID = #{repairId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.biye.sheji.entity.FactoryRepair">
+    insert into factory_repair (REPAIR_ID, EQU_ID, PAETS_ID, 
+      USER_ID, REPAIR_MARK, REPAIR_ISPASS, 
+      REPAIR_START_TIME, REPAIR_END_TIME)
+    values (#{repairId,jdbcType=INTEGER}, #{equId,jdbcType=INTEGER}, #{paetsId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{repairMark,jdbcType=VARCHAR}, #{repairIspass,jdbcType=VARCHAR}, 
+      #{repairStartTime,jdbcType=TIMESTAMP}, #{repairEndTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.biye.sheji.entity.FactoryRepair">
+    insert into factory_repair
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="repairId != null">
+        REPAIR_ID,
+      </if>
+      <if test="equId != null">
+        EQU_ID,
+      </if>
+      <if test="paetsId != null">
+        PAETS_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="repairMark != null">
+        REPAIR_MARK,
+      </if>
+      <if test="repairIspass != null">
+        REPAIR_ISPASS,
+      </if>
+      <if test="repairStartTime != null">
+        REPAIR_START_TIME,
+      </if>
+      <if test="repairEndTime != null">
+        REPAIR_END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="repairId != null">
+        #{repairId,jdbcType=INTEGER},
+      </if>
+      <if test="equId != null">
+        #{equId,jdbcType=INTEGER},
+      </if>
+      <if test="paetsId != null">
+        #{paetsId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="repairMark != null">
+        #{repairMark,jdbcType=VARCHAR},
+      </if>
+      <if test="repairIspass != null">
+        #{repairIspass,jdbcType=VARCHAR},
+      </if>
+      <if test="repairStartTime != null">
+        #{repairStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repairEndTime != null">
+        #{repairEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.biye.sheji.entity.FactoryRepair">
+    update factory_repair
+    <set>
+      <if test="equId != null">
+        EQU_ID = #{equId,jdbcType=INTEGER},
+      </if>
+      <if test="paetsId != null">
+        PAETS_ID = #{paetsId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="repairMark != null">
+        REPAIR_MARK = #{repairMark,jdbcType=VARCHAR},
+      </if>
+      <if test="repairIspass != null">
+        REPAIR_ISPASS = #{repairIspass,jdbcType=VARCHAR},
+      </if>
+      <if test="repairStartTime != null">
+        REPAIR_START_TIME = #{repairStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repairEndTime != null">
+        REPAIR_END_TIME = #{repairEndTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where REPAIR_ID = #{repairId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.biye.sheji.entity.FactoryRepair">
+    update factory_repair
+    set EQU_ID = #{equId,jdbcType=INTEGER},
+      PAETS_ID = #{paetsId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      REPAIR_MARK = #{repairMark,jdbcType=VARCHAR},
+      REPAIR_ISPASS = #{repairIspass,jdbcType=VARCHAR},
+      REPAIR_START_TIME = #{repairStartTime,jdbcType=TIMESTAMP},
+      REPAIR_END_TIME = #{repairEndTime,jdbcType=TIMESTAMP}
+    where REPAIR_ID = #{repairId,jdbcType=INTEGER}
+  </update>
+</mapper>

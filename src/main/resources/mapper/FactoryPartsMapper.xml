@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biye.sheji.dao.FactoryPartsMapper">
+  <resultMap id="BaseResultMap" type="com.biye.sheji.entity.FactoryParts">
+    <id column="PAETS_ID" jdbcType="INTEGER" property="paetsId" />
+    <result column="EQU_ID" jdbcType="INTEGER" property="equId" />
+    <result column="PAETS_NAME" jdbcType="VARCHAR" property="paetsName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PAETS_ID, EQU_ID, PAETS_NAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from factory_parts
+    where PAETS_ID = #{paetsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from factory_parts
+    where PAETS_ID = #{paetsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.biye.sheji.entity.FactoryParts">
+    insert into factory_parts (PAETS_ID, EQU_ID, PAETS_NAME
+      )
+    values (#{paetsId,jdbcType=INTEGER}, #{equId,jdbcType=INTEGER}, #{paetsName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.biye.sheji.entity.FactoryParts">
+    insert into factory_parts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paetsId != null">
+        PAETS_ID,
+      </if>
+      <if test="equId != null">
+        EQU_ID,
+      </if>
+      <if test="paetsName != null">
+        PAETS_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paetsId != null">
+        #{paetsId,jdbcType=INTEGER},
+      </if>
+      <if test="equId != null">
+        #{equId,jdbcType=INTEGER},
+      </if>
+      <if test="paetsName != null">
+        #{paetsName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.biye.sheji.entity.FactoryParts">
+    update factory_parts
+    <set>
+      <if test="equId != null">
+        EQU_ID = #{equId,jdbcType=INTEGER},
+      </if>
+      <if test="paetsName != null">
+        PAETS_NAME = #{paetsName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAETS_ID = #{paetsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.biye.sheji.entity.FactoryParts">
+    update factory_parts
+    set EQU_ID = #{equId,jdbcType=INTEGER},
+      PAETS_NAME = #{paetsName,jdbcType=VARCHAR}
+    where PAETS_ID = #{paetsId,jdbcType=INTEGER}
+  </update>
+
+    <select id="list" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from factory_parts
+    </select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biye.sheji.dao.FactoryConsuMapper">
+  <resultMap id="BaseResultMap" type="com.biye.sheji.entity.FactoryConsu">
+    <id column="CONSU_ID" jdbcType="INTEGER" property="consuId" />
+    <result column="CONSU_NAME" jdbcType="VARCHAR" property="consuName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CONSU_ID, CONSU_NAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from factory_consu
+    where CONSU_ID = #{consuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from factory_consu
+    where CONSU_ID = #{consuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.biye.sheji.entity.FactoryConsu">
+    insert into factory_consu (CONSU_ID, CONSU_NAME)
+    values (#{consuId,jdbcType=INTEGER}, #{consuName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.biye.sheji.entity.FactoryConsu">
+    insert into factory_consu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="consuId != null">
+        CONSU_ID,
+      </if>
+      <if test="consuName != null">
+        CONSU_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="consuId != null">
+        #{consuId,jdbcType=INTEGER},
+      </if>
+      <if test="consuName != null">
+        #{consuName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.biye.sheji.entity.FactoryConsu">
+    update factory_consu
+    <set>
+      <if test="consuName != null">
+        CONSU_NAME = #{consuName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CONSU_ID = #{consuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.biye.sheji.entity.FactoryConsu">
+    update factory_consu
+    set CONSU_NAME = #{consuName,jdbcType=VARCHAR}
+    where CONSU_ID = #{consuId,jdbcType=INTEGER}
+  </update>
+</mapper>
