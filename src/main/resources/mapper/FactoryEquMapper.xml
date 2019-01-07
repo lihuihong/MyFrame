@@ -1,108 +1,111 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.biye.sheji.dao.FactoryEquMapper">
-  <resultMap id="BaseResultMap" type="com.biye.sheji.entity.FactoryEqu">
-    <id column="EQU_ID" jdbcType="INTEGER" property="equId" />
-    <result column="EQU_NAME" jdbcType="VARCHAR" property="equName" />
-    <result column="EQU_MARK" jdbcType="VARCHAR" property="equMark" />
-    <result column="EQU_ISPASS" jdbcType="VARCHAR" property="equIspass" />
-    <result column="EQU_ISOK" jdbcType="VARCHAR" property="equIsok" />
-    <result column="EQU_CONSU" jdbcType="VARCHAR" property="equConsu" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    EQU_ID, EQU_NAME, EQU_MARK, EQU_ISPASS, EQU_ISOK, EQU_CONSU
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from factory_equ
-    where EQU_ID = #{equId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from factory_equ
-    where EQU_ID = #{equId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.biye.sheji.entity.FactoryEqu">
-    insert into factory_equ (EQU_ID, EQU_NAME, EQU_MARK, 
-      EQU_ISPASS, EQU_ISOK, EQU_CONSU
-      )
-    values (#{equId,jdbcType=INTEGER}, #{equName,jdbcType=VARCHAR}, #{equMark,jdbcType=VARCHAR}, 
-      #{equIspass,jdbcType=VARCHAR}, #{equIsok,jdbcType=VARCHAR}, #{equConsu,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.biye.sheji.entity.FactoryEqu">
-    insert into factory_equ
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="equId != null">
-        EQU_ID,
-      </if>
-      <if test="equName != null">
-        EQU_NAME,
-      </if>
-      <if test="equMark != null">
-        EQU_MARK,
-      </if>
-      <if test="equIspass != null">
-        EQU_ISPASS,
-      </if>
-      <if test="equIsok != null">
-        EQU_ISOK,
-      </if>
-      <if test="equConsu != null">
-        EQU_CONSU,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="equId != null">
-        #{equId,jdbcType=INTEGER},
-      </if>
-      <if test="equName != null">
-        #{equName,jdbcType=VARCHAR},
-      </if>
-      <if test="equMark != null">
-        #{equMark,jdbcType=VARCHAR},
-      </if>
-      <if test="equIspass != null">
-        #{equIspass,jdbcType=VARCHAR},
-      </if>
-      <if test="equIsok != null">
-        #{equIsok,jdbcType=VARCHAR},
-      </if>
-      <if test="equConsu != null">
-        #{equConsu,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.biye.sheji.entity.FactoryEqu">
-    update factory_equ
-    <set>
-      <if test="equName != null">
-        EQU_NAME = #{equName,jdbcType=VARCHAR},
-      </if>
-      <if test="equMark != null">
-        EQU_MARK = #{equMark,jdbcType=VARCHAR},
-      </if>
-      <if test="equIspass != null">
-        EQU_ISPASS = #{equIspass,jdbcType=VARCHAR},
-      </if>
-      <if test="equIsok != null">
-        EQU_ISOK = #{equIsok,jdbcType=VARCHAR},
-      </if>
-      <if test="equConsu != null">
-        EQU_CONSU = #{equConsu,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where EQU_ID = #{equId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.biye.sheji.entity.FactoryEqu">
-    update factory_equ
-    set EQU_NAME = #{equName,jdbcType=VARCHAR},
-      EQU_MARK = #{equMark,jdbcType=VARCHAR},
-      EQU_ISPASS = #{equIspass,jdbcType=VARCHAR},
-      EQU_ISOK = #{equIsok,jdbcType=VARCHAR},
-      EQU_CONSU = #{equConsu,jdbcType=VARCHAR}
-    where EQU_ID = #{equId,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.biye.sheji.entity.FactoryEqu">
+        <id column="EQU_ID" jdbcType="INTEGER" property="equId" />
+        <result column="EQU_NAME" jdbcType="VARCHAR" property="equName" />
+        <result column="EQU_MARK" jdbcType="VARCHAR" property="equMark" />
+        <result column="EQU_ISPASS" jdbcType="VARCHAR" property="equIspass" />
+        <result column="EQU_ISOK" jdbcType="VARCHAR" property="equIsok" />
+        <result column="EQU_CONSU" jdbcType="VARCHAR" property="equConsu" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        EQU_ID, EQU_NAME, EQU_MARK, EQU_ISPASS, EQU_ISOK, EQU_CONSU
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from factory_equ
+        where EQU_ID = #{equId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from factory_equ
+        where EQU_ID = #{equId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.biye.sheji.entity.FactoryEqu">
+        insert into factory_equ (EQU_ID, EQU_NAME, EQU_MARK,
+                                 EQU_ISPASS, EQU_ISOK, EQU_CONSU
+                )
+        values (#{equId,jdbcType=INTEGER}, #{equName,jdbcType=VARCHAR}, #{equMark,jdbcType=VARCHAR},
+                #{equIspass,jdbcType=VARCHAR}, #{equIsok,jdbcType=VARCHAR}, #{equConsu,jdbcType=VARCHAR}
+                       )
+    </insert>
+    <insert id="insertSelective" parameterType="com.biye.sheji.entity.FactoryEqu">
+        insert into factory_equ
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="equId != null">
+                EQU_ID,
+            </if>
+            <if test="equName != null">
+                EQU_NAME,
+            </if>
+            <if test="equMark != null">
+                EQU_MARK,
+            </if>
+            <if test="equIspass != null">
+                EQU_ISPASS,
+            </if>
+            <if test="equIsok != null">
+                EQU_ISOK,
+            </if>
+            <if test="equConsu != null">
+                EQU_CONSU,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="equId != null">
+                #{equId,jdbcType=INTEGER},
+            </if>
+            <if test="equName != null">
+                #{equName,jdbcType=VARCHAR},
+            </if>
+            <if test="equMark != null">
+                #{equMark,jdbcType=VARCHAR},
+            </if>
+            <if test="equIspass != null">
+                #{equIspass,jdbcType=VARCHAR},
+            </if>
+            <if test="equIsok != null">
+                #{equIsok,jdbcType=VARCHAR},
+            </if>
+            <if test="equConsu != null">
+                #{equConsu,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.biye.sheji.entity.FactoryEqu">
+        update factory_equ
+        <set>
+            <if test="equName != null">
+                EQU_NAME = #{equName,jdbcType=VARCHAR},
+            </if>
+            <if test="equMark != null">
+                EQU_MARK = #{equMark,jdbcType=VARCHAR},
+            </if>
+            <if test="equIspass != null">
+                EQU_ISPASS = #{equIspass,jdbcType=VARCHAR},
+            </if>
+            <if test="equIsok != null">
+                EQU_ISOK = #{equIsok,jdbcType=VARCHAR},
+            </if>
+            <if test="equConsu != null">
+                EQU_CONSU = #{equConsu,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where EQU_ID = #{equId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.biye.sheji.entity.FactoryEqu">
+        update factory_equ
+        set EQU_NAME = #{equName,jdbcType=VARCHAR},
+            EQU_MARK = #{equMark,jdbcType=VARCHAR},
+            EQU_ISPASS = #{equIspass,jdbcType=VARCHAR},
+            EQU_ISOK = #{equIsok,jdbcType=VARCHAR},
+            EQU_CONSU = #{equConsu,jdbcType=VARCHAR}
+        where EQU_ID = #{equId,jdbcType=INTEGER}
+    </update>
     <select id="list" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />

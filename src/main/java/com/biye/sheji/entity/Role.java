@@ -12,6 +12,16 @@ public class Role {
 
     private String name;
 
+    private String funs;
+
+    public String getFuns() {
+        return funs;
+    }
+
+    public void setFuns(String funs) {
+        this.funs = funs;
+    }
+
     public Integer getId() {
         return id;
     }

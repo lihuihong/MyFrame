@@ -7,10 +7,13 @@ public class FactoryRepair implements Serializable {
     private Integer repairId;
 
     private Integer equId;
+    private String equName;
 
     private Integer paetsId;
+    private String paetsName;
 
     private Integer userId;
+    private String userName;
 
     private String repairMark;
 
@@ -84,6 +87,30 @@ public class FactoryRepair implements Serializable {
 
     public void setRepairEndTime(Date repairEndTime) {
         this.repairEndTime = repairEndTime;
+    }
+
+    public String getEquName() {
+        return equName;
+    }
+
+    public void setEquName(String equName) {
+        this.equName = equName;
+    }
+
+    public String getPaetsName() {
+        return paetsName;
+    }
+
+    public void setPaetsName(String paetsName) {
+        this.paetsName = paetsName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override

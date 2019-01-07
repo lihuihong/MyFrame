@@ -38,7 +38,7 @@
 					<div class="layui-nav">
 						<div class="layui-nav-item">
 							<a href="javascript:;">
-								<cite>${sessionScope.userInfo.userUsername}</cite>
+								<cite>${sessionScope.userInfo.userName}</cite>
 							</a>
 							<dl class="layui-nav-child">
 								<dd><a id="personalPassword" lay-href="/web/password.action">修改密码</a></dd>
@@ -69,22 +69,22 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a lay-href="${pageContext.request.contextPath}/web/userManage.action" class="nav-tab" lay-id="1" data-type="tabAdd">
+                            <a lay-href="/web/page/user/userManage" class="nav-tab" lay-id="1" data-type="tabAdd">
                                 <i class="layui-icon"></i><label>用户管理</label>
                             </a>
                         </dd>
                         <dd>
-                            <a lay-href="${pageContext.request.contextPath}/web/equ/equList.action" class="nav-tab" lay-id="1" data-type="tabAdd">
+                            <a lay-href="/web/page/equ/equList" class="nav-tab" lay-id="2" data-type="tabAdd">
                                 <i class="layui-icon"></i><label>设备管理</label>
                             </a>
                         </dd>
                         <dd>
-                            <a lay-href="/page/dataManager/supplierManage" class="nav-tab" lay-id="1" data-type="tabAdd">
+                            <a lay-href="/web/page/part/partsList" class="nav-tab" lay-id="3" data-type="tabAdd">
                                 <i class="layui-icon"></i><label>设备配件管理</label>
                             </a>
                         </dd>
                         <dd>
-                            <a lay-href="/page/dataManager/supplierManage" class="nav-tab" lay-id="1" data-type="tabAdd">
+                            <a lay-href="/web/page/repair/repairList" class="nav-tab" lay-id="4" data-type="tabAdd">
                                 <i class="layui-icon"></i><label>维修管理</label>
                             </a>
                         </dd>
@@ -96,7 +96,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a lay-href="/page/dataManager/supplierManage" class="nav-tab" lay-id="1" data-type="tabAdd">
+                            <a lay-href="/web/page/user/roleManage" class="nav-tab" lay-id="5" data-type="tabAdd">
                                 <i class="layui-icon"></i><label>用户权限管理</label>
                             </a>
                         </dd>

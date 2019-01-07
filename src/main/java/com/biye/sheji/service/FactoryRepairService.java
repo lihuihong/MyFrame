@@ -1,58 +1,45 @@
 package com.biye.sheji.service;
 
-import com.biye.sheji.dao.FactoryRepairMapper;
 import com.biye.sheji.entity.FactoryRepair;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class FactoryRepairService {
-    @Autowired
-    private FactoryRepairMapper factoryRepairMapper;
-
+public interface FactoryRepairService {
     /**
-     * 通过主键获取设备维修信息
-     * @param paetsId
+     * 根据主键删除维修信息
+     * @param repairId
      * @return
      */
-    public FactoryRepair selectByPrimaryKey(int paetsId){
-        return factoryRepairMapper.selectByPrimaryKey(paetsId);
-    }
+    int deleteByPrimaryKey(Integer repairId);
 
     /**
-     * 新增设备维修
-     * @param factoryParts
-     * @return
-     */
-    public int insert(FactoryRepair factoryParts){
-        return factoryRepairMapper.insert(factoryParts);
-    }
-
-    /**
-     * 通过主键删除设备维修信息
-     * @param paetsId
-     * @return
-     */
-    public int deleteByPrimaryKey(Integer paetsId){
-        return factoryRepairMapper.deleteByPrimaryKey(paetsId);
-    }
-
-    /**
-     * 通过主键更新设备维修信息
+     * 新增维修信息
      * @param record
      * @return
      */
-    public int updateByPrimaryKeySelective(FactoryRepair record){
-        return factoryRepairMapper.updateByPrimaryKeySelective(record);
-    }
+    int insert(FactoryRepair record);
 
     /**
-     * 获取全部设备维修信息
+     *
+     * @param record
      * @return
      */
-    public List<FactoryRepair> list(){
-        return factoryRepairMapper.list();
-    }
+    int insertSelective(FactoryRepair record);
+
+    /**
+     * 根据主键查询维修信息
+     * @param repairId
+     * @return
+     */
+    FactoryRepair selectByPrimaryKey(Integer repairId);
+    List<FactoryRepair> list();
+
+    /**
+     * 根据主键更新维修信息
+     * @param record
+     * @return
+     */
+    int updateByPrimaryKeySelective(FactoryRepair record);
+
+    int updateByPrimaryKey(FactoryRepair record);
 }

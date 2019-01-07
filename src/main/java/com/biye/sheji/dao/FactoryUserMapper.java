@@ -4,60 +4,57 @@ import com.biye.sheji.entity.FactoryUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FactoryUserMapper {
 
     /**
-     * 根据主键删除用户信息
-     * @param userId
+     * 用户登录
+     * @param user
      * @return
      */
-    int deleteByPrimaryKey(Integer userId);
+    public FactoryUser login(FactoryUser user);
+
 
     /**
-     * 插入用户信息
-     * @param factoryUser
+     * 查询所有用户信息
+     * @param user
      * @return
      */
-    int insert(FactoryUser factoryUser);
-
-    int insertSelective(FactoryUser record);
+    public List<FactoryUser> list(FactoryUser user);
 
     /**
-     * 根据主键查询用户信息
-     * @param userId
+     * 获取用户记录数
+     * @param map
      * @return
      */
-    FactoryUser selectByPrimaryKey(Integer userId);
+    public Long getTotal(Map<String, Object> map);
 
     /**
-     * 根据用户id修改用户信息
-     * @param record
+     * 添加用户
+     * @param user
      * @return
      */
-    int updateByPrimaryKeySelective(FactoryUser record);
-
-    int updateByPrimaryKey(FactoryUser record);
-    /**
-     * 校验用户
-     * @param userName 登录名
-     * @param passWord 登录密码
-     * @return
-     */
-    FactoryUser checkUser(@Param("userName") String userName, @Param("passWord") String passWord);
-    /**
-     * 根据旧密码，判断查询用户
-     * @param password
-     * @return
-     */
-    FactoryUser selectByPassword(@Param("password") String password, @Param("id") int id);
+    public Integer add(FactoryUser user);
 
     /**
-     * 根据用户id查询信息
+     * 修改用户
+     * @param user
+     * @return
+     */
+    public Integer update(FactoryUser user);
+
+    /**
+     * 删除用户
      * @param id
      * @return
      */
-    FactoryUser selectById(int id);
+    public Integer delete(Integer id);
 
-    List<FactoryUser> selectAllFactoryUser();
+    /**
+     * 根据用户id获取用户
+     * @param id
+     * @return
+     */
+    public FactoryUser queryUserByUid(Integer id);
 }

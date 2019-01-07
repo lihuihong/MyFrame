@@ -1,6 +1,5 @@
 package com.biye.sheji.dao;
 
-
 import com.biye.sheji.entity.FactoryRepair;
 
 import java.util.List;

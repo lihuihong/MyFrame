@@ -20,46 +20,48 @@
     </style>
 </head>
 <body>
-<form id="edit"  class="layui-form">
-    <div style="padding: 20px; line-height: 24px;">
-        <input type="hidden" name="infoId" value="${data.infoId}">
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px;">设备名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="equName" required lay-verify="required" class="layui-input"
-                       value="${data.equName}">
-            </div>
+<form class="layui-form" lay-filter="form" style="padding: 20px 50px 20px 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备名称</label>
+        <div class="layui-input-inline">
+            <input type="hidden" name="equId">
+            <input type="text" name="equName" required lay-verify="required" placeholder="设备名称" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">设备描述</label>
-            <div class="layui-input-inline">
-                <input type="text" name="equMark"  class="layui-input" value="${data.equMark}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">设备是否报修</label>
-            <div class="layui-input-inline">
-                <input type="text" name="equIspass" required lay-verify="required" class="layui-input"
-                       value="${data.equIspass}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">设备是否报废</label>
-            <div class="layui-input-inline">
-                <input type="text" name="infoNameAddress" required lay-verify="required" class="layui-input"
-                       value="${data.infoNameAddress}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width: 150px">设备是否申请耗材</label>
-            <div class="layui-input-inline">
-                <input type="text" name="equConsu" required lay-verify="required" class="layui-input"
-                       value="${data.equConsu}">
-            </div>
+        <label class="layui-form-label">设备描述</label>
+        <div class="layui-input-inline">
+            <input type="text" name="equMark" required lay-verify="required" placeholder="请输入设备描述" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="frameBtn">
-        <button class="layui-btn" type='button' lay-submit lay-filter="submit">立即提交</button>
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备是否报修</label>
+        <div class="layui-input-inline">
+            <select name="equIspass" id="equIspassId" lay-verify="required">
+                <option value="0">未保修</option>
+                <option value="1">已保修</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备是否报废</label>
+        <div class="layui-input-inline">
+            <select name="infoNameAddress" id="infoNameAddressId" lay-verify="required">
+                <option value="0">未报废</option>
+                <option value="1">已报废</option>
+            </select>
+        </div>
+        <label class="layui-form-label">设备是否申请耗材</label>
+        <div class="layui-input-inline">
+            <select name="equConsu" id="equConsuId" lay-verify="required">
+                <option value="0">未申请耗材</option>
+                <option value="1">已申请耗材</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
     </div>
 </form>
 <script src="/resources/layui/layui.js"></script>
@@ -72,7 +74,7 @@
         form.on('submit(submit)',function(data){
             layer.confirm('是否确定提交？',{icon: 3, title:'系统信息'},function(index){
                 $.ajax({
-                    url:'/cardInfo/saveCardInfo.json',
+                    url:'/equ/equEditOrSave',
                     type:'post',
                     data:data.field,
                     closeBtn: 1,
@@ -82,7 +84,7 @@
                     },
                     success:function(data){
                         //do something
-                        if(data.code=="000000"){
+                        if(data.code==0){
                             window.parent.location.reload();
                             var index = parent.layer.getFrameIndex(window.name);//获取当前窗口索引
                             parent.layer.msg('修改成功', {icon : 1});
@@ -102,6 +104,16 @@
             })
             return false;
         })
+
+        //表单初始赋值
+        form.val('form', {
+            "equId":data.equId
+            ,"equName":data.equName
+            ,"equMark": data.equMark
+            ,"equIspass": data.equIspass
+            ,"infoNameAddress": data.infoNameAddress
+            ,"equConsu": data.equConsu
+        });
     })
 </script>
 <script>

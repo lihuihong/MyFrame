@@ -1,25 +1,18 @@
 package com.biye.sheji.controller;
 
-import com.biye.sheji.entity.FactoryEqu;
-import com.biye.sheji.entity.Result;
-import com.biye.sheji.entity.RspDataVo;
+import com.biye.sheji.entity.*;
 import com.biye.sheji.service.FactoryEquService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
-/**
- * 设备管理
- */
 @Controller
 @RequestMapping("/equ")
 public class FactoryEquController {
-
     @Autowired
     private FactoryEquService factoryEquService;
 
@@ -27,13 +20,22 @@ public class FactoryEquController {
      * 查询所有设备信息
      * @return
      */
-    @RequestMapping(value = "/list.action",method = RequestMethod.GET)
-    public RspDataVo<FactoryEqu> list(){
-        RspDataVo<FactoryEqu> rspDataVo = new RspDataVo<>();
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public Result list(Integer page, Integer limit ){
         List<FactoryEqu> list = factoryEquService.list();
-        rspDataVo.setCount(list.size());
-        rspDataVo.setData(list);
-        return rspDataVo;
+        PageInfo<FactoryEqu> pageInfo = new PageInfo<>(list);
+        Result result = new Result();
+
+        if(pageInfo.getTotal() > 0){
+            result.setSuccessMsg("获取成功");
+            result.setData(pageInfo.getList());
+            result.setCount((int) pageInfo.getTotal());
+        }else{
+            result.setSuccessMsg("获取失败");
+            result.setCount(0);
+        }
+
+        return result;
     }
 
     /**
@@ -41,60 +43,40 @@ public class FactoryEquController {
      * @param equId
      * @return
      */
-    @RequestMapping(value = "/del.json",method = RequestMethod.POST)
-    public Result delete(int equId){
+    @RequestMapping(value = "/equDel",method = RequestMethod.POST)
+    public Result equDel(int equId){
+        Result result = new Result();
         int i = factoryEquService.deleteByPrimaryKey(equId);
         if (i!=0){
-            return Result.success();
+            result.setSuccessMsg("删除成功");
         }else {
-            return Result.error("删除失败");
+            result.setErrorMsg("删除失败");
         }
+        return result;
     }
 
     /**
-     * 根据主键查询设备信息
+     * 根据主键更新或增加设备信息
      * @return
      */
-    @RequestMapping(value = "/equEdit.action",method = RequestMethod.GET)
-    public String equEdit(ModelMap map, HttpServletRequest request){
+    @RequestMapping(value = "/equEditOrSave",method = RequestMethod.GET)
+    public Result equEditOrSave(FactoryEqu factoryEqu,HttpServletRequest request){
         //获取
-        int id = Integer.parseInt(request.getParameter("id"));
-        FactoryEqu factoryEqu = factoryEquService.selectByPrimaryKey(id);
-        factoryEqu.setEquIspass(factoryEqu.getEquIspass() == "0"?"未报修":"已报修");
-        factoryEqu.setEquIsok(factoryEqu.getEquIsok() == "0"?"未报废":"已报废");
-        factoryEqu.setEquConsu(factoryEqu.getEquConsu() == "0"?"未报修":"已报修");
-        map.put("data",factoryEqu);
-        return "/from/equEdit";
-    }
-    /**
-     * 根据主键更新设备信息
-     * @param factoryEqu
-     * @return
-     */
-    @RequestMapping(value = "/equEdit.json",method = RequestMethod.POST)
-    public Result equEdit(FactoryEqu factoryEqu){
-        int i = factoryEquService.updateByPrimaryKeySelective(factoryEqu);
-        if (i!=0){
-            return Result.success();
-        }else {
-            return Result.error("修改失败");
-        }
-    }
+        Result result = new Result();
 
-    /**
-     * 新增设备信息
-     * @param factoryEqu
-     * @return
-     */
-    @RequestMapping(value = "/equSave.json",method = RequestMethod.POST)
-    public Result equSave(FactoryEqu factoryEqu){
-        int insert = factoryEquService.insert(factoryEqu);
-        if (insert!=0){
-            return Result.success();
-        }else {
-            return Result.error("保存失败");
+        int resultTotal = 0;
+        if(factoryEqu.getEquId()==null){
+            resultTotal=factoryEquService.insert(factoryEqu);
+        }else{
+            resultTotal=factoryEquService.updateByPrimaryKeySelective(factoryEqu);
         }
-    }
 
+        if(resultTotal>0){
+            result.setSuccessMsg("成功");
+        }else{
+            result.setErrorMsg("失败");
+        }
+        return result;
+    }
 
 }

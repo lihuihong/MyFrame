@@ -1,67 +1,77 @@
 package com.biye.sheji.controller;
 
 
+import com.biye.sheji.entity.FactoryUser;
+import com.biye.sheji.entity.Fun;
+import com.biye.sheji.entity.Role;
+import com.biye.sheji.service.FunService;
+import com.biye.sheji.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.HttpCookie;
-import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/web")
 public class MainController {
 
+    public static final int WIDTH = 80;// 生成的图片的宽度
+    public static final int HEIGHT = 25;// 生成的图片的高度
 
-	/**
-     * 登录界面跳转
-     */
-    @RequestMapping(value = "/login.action",method = RequestMethod.GET)
-    public String to_login(HttpServletRequest request){
-        return "/login";
-    }
-    /**
-     * 注册界面跳转
-     */
-    @RequestMapping(value = "/register.action" ,method = RequestMethod.GET)
-    public String to_register(HttpServletRequest request){
-        return "/register";
-    }
+    @Autowired
+    private RoleService roleServiceImp;
+    @Autowired
+    private FunService funServiceImp;
 
     /**
-     * 修改密码界面跳转
+     * 跳转到主页面
+     *
+     * @param session
+     * @param request
+     * @return
      */
-    @RequestMapping(value = "/password.action" ,method = RequestMethod.GET)
-    public String password(HttpServletRequest request){
-        return "/updatePassword";
-    }
+    @RequestMapping("/main")
+    public String main(HttpSession session, HttpServletRequest request) {
 
-    /**
-     * 主页面跳转
-     */
-    @RequestMapping(value = "/index.action",method = RequestMethod.GET)
-    public String index(HttpServletRequest request){
+        FactoryUser admin = (FactoryUser) session.getAttribute("userInfo");
+
+        Map<String, List<Fun>> roles = new LinkedHashMap<>();
+        List<String> icons = new ArrayList<>();
+
+        // 获取用户角色信息
+        Role role  = roleServiceImp.findById(admin.getRoleId());
+        String funstr = role.getFuns();
+        List<String> funs = Arrays.asList(funstr.split(","));
+        // 获取所有模块和功能
+        List<Fun> modAndFuns = funServiceImp.list();
+
+        // 获取所有模块
+        List<Fun> mods = modAndFuns.stream().filter(t -> t.getPid().equals(0)).collect(Collectors.toList());
+        // 便利模块
+        for (Fun mod : mods) {
+            // 获取该模块下用户拥有的所有功能
+            icons.add(mod.getIcon());
+            List<Fun> functions = modAndFuns.stream()
+                    .filter(t -> t.getPid().equals(mod.getId()) && funs.contains("" + t.getId()))
+                    .collect(Collectors.toList());
+            if (functions.size() > 0) {
+                roles.put(mod.getName(), functions);
+            }
+        }
+        request.setAttribute("roles", roles);
+        request.setAttribute("icons", icons);
+        request.setAttribute("admin", admin);
         return "/main";
     }
 
-    /**
-     * 用户管理
-     */
-    @RequestMapping(value = "/userManage.action",method = RequestMethod.GET)
-    public String userManage(HttpServletRequest request){
-        return "/userManage";
-    }
+
+
 
     /**
      * 单纯的页面跳转
@@ -70,10 +80,34 @@ public class MainController {
      *            页面名称，即jsp文件名
      * @return
      */
-    @RequestMapping(value = "/equ/{name}.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/page/{name}", method = RequestMethod.GET)
     public String page(@PathVariable String name) {
-        return "/from"+name;
+        return name;
     }
 
+    /**
+     * 单纯的页面跳转
+     *
+     * 页面名称，即jsp文件名
+     *
+     * @return
+     */
+    @RequestMapping(value = "/page/{model}/{fun}", method = RequestMethod.GET)
+    public String page(@PathVariable String model, @PathVariable String fun) {
+        return model + "/" + fun;
+    }
+
+    /**
+     * 单纯的页面跳转
+     *
+     * 页面名称，即jsp文件名
+     *
+     * @return
+     */
+    @RequestMapping(value = "/page/{model}/{fun}/{file}", method = RequestMethod.GET)
+    public String page(@PathVariable String model, @PathVariable String fun, @PathVariable String file) {
+        return model + "/" + fun + "/" + file;
+    }
 
 }
+

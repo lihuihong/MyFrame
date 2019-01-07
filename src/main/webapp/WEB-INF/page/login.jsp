@@ -21,7 +21,7 @@
     <header class="layui-elip">登录</header>
     <form class="layui-form" method="post">
         <div class="layui-input-inline">
-            <input type="text" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off"
+            <input type="text" name="userName" required lay-verify="required" placeholder="用户名" autocomplete="off"
                    class="layui-input">
         </div>
         <div class="layui-input-inline">
@@ -32,8 +32,7 @@
             <button lay-submit lay-filter="login" class="layui-btn">登录</button>
         </div>
         <hr/>
-        <p><a href="${pageContext.request.contextPath}/web/register.action" class="fl">立即注册</a><a href="javascript:;"
-                                                                                                  class="fr">忘记密码？</a>
+        <p><a href="" class="fl">立即注册</a><a href="javascript:;" lass="fr">忘记密码？</a>
         </p>
     </form>
 </div>
@@ -48,7 +47,7 @@
         //监听提交
         form.on('submit(login)', function (data) {
             $.ajax({
-                url: "/user/login.json",
+                url: "/user/login",
                 dataType: "json",
                 type: "POST",
                 data: data.field,
@@ -56,7 +55,7 @@
                     if (data.code == "000000") {
                         layer.msg("登录成功，正在跳转。。。")
                         setTimeout(function () {
-                            window.location.href = "${pageContext.request.contextPath}/web/index.action";
+                            window.location.href = "${pageContext.request.contextPath}/web/page/main";
                         },2000)
                     } else {
                         layer.msg("账号或密码错误")

@@ -1,99 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.biye.sheji.dao.FactoryUserMapper">
-  <resultMap id="BaseResultMap" type="com.biye.sheji.entity.FactoryUser">
-    <id column="USER_ID" jdbcType="INTEGER" property="userId" />
-    <result column="USER_TYPE" jdbcType="INTEGER" property="userType" />
-    <result column="USER_USERNAME" jdbcType="VARCHAR" property="userUsername" />
-    <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    USER_ID, USER_TYPE, USER_USERNAME, USER_PASSWORD
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from factory_user
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from factory_user
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.biye.sheji.entity.FactoryUser">
-    insert into factory_user (USER_ID, USER_TYPE, USER_USERNAME, 
-      USER_PASSWORD)
-    values (#{userId,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, #{userUsername,jdbcType=VARCHAR}, 
-      #{userPassword,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.biye.sheji.entity.FactoryUser">
-    insert into factory_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="userType != null">
-        USER_TYPE,
-      </if>
-      <if test="userUsername != null">
-        USER_USERNAME,
-      </if>
-      <if test="userPassword != null">
-        USER_PASSWORD,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userType != null">
-        #{userType,jdbcType=INTEGER},
-      </if>
-      <if test="userUsername != null">
-        #{userUsername,jdbcType=VARCHAR},
-      </if>
-      <if test="userPassword != null">
-        #{userPassword,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.biye.sheji.entity.FactoryUser">
-    update factory_user
-    <set>
-      <if test="userType != null">
-        USER_TYPE = #{userType,jdbcType=INTEGER},
-      </if>
-      <if test="userUsername != null">
-        USER_USERNAME = #{userUsername,jdbcType=VARCHAR},
-      </if>
-      <if test="userPassword != null">
-        USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.biye.sheji.entity.FactoryUser">
-    update factory_user
-    set USER_TYPE = #{userType,jdbcType=INTEGER},
-      USER_USERNAME = #{userUsername,jdbcType=VARCHAR},
-      USER_PASSWORD = #{userPassword,jdbcType=VARCHAR}
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </update>
-    <!-- 校验用户 -->
-    <select id="checkUser" resultMap="BaseResultMap">
-        SELECT
-        *
-        FROM
-        factory_user
-        WHERE
-        USER_USERNAME = #{userName}
-        <if test="passWord!=null and passWord!=''">AND USER_PASSWORD = #{passWord}</if>
+    <resultMap id="UserResult" type="FactoryUser">
+        <id property="id" column="id"></id>
+        <result property="userName" column="userName"></result>
+        <result property="password" column="password"></result>
+        <result property="trueName" column="trueName"></result>
+        <result property="email" column="email"></result>
+        <result property="phone" column="phone"></result>
+        <association property="role" column="roleId" select="com.biye.sheji.dao.RoleDao.findById"></association>
+    </resultMap>
+
+    <select id="login" parameterType="FactoryUser" resultType="FactoryUser">
+        select * from factory_user where userName=#{userName} and password=#{password}
     </select>
 
-    <select id="selectAllFactoryUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from factory_user
+    <select id="queryUserByUid" parameterType="FactoryUser" resultType="FactoryUser">
+        select * from factory_user where id=#{id} and password=#{password}
     </select>
 
+    <select id="list" parameterType="FactoryUser" resultMap="UserResult">
+        select * from factory_user
+        <where>
+            <if test="userName!=null and userName!=''">
+                and userName like CONCAT('%',#{userName},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Long">
+        select count(*) from factory_user
+        <where>
+            <if test="userName!=null and userName!=''">
+                and userName like #{userName}
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="FactoryUser">
+        insert into factory_user values (null,#{userName},#{password},#{trueName},#{email},#{phone},#{roleId})
+    </insert>
+
+    <update id="update" parameterType="FactoryUser">
+        update factory_user
+        <set>
+            <if test="userName!=null and userName!=''">
+                userName=#{userName},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="trueName!=null and trueName!=''">
+                trueName=#{trueName},
+            </if>
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone=#{phone},
+            </if>
+            <if test="roleId!=null and roleId!=''">
+                roleId=#{roleId},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from factory_user where id=#{id}
+    </delete>
 </mapper>

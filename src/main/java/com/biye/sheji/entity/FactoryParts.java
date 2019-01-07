@@ -9,6 +9,8 @@ public class FactoryParts implements Serializable {
 
     private String paetsName;
 
+    private String equName;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getPaetsId() {
@@ -33,6 +35,14 @@ public class FactoryParts implements Serializable {
 
     public void setPaetsName(String paetsName) {
         this.paetsName = paetsName == null ? null : paetsName.trim();
+    }
+
+    public String getEquName() {
+        return equName;
+    }
+
+    public void setEquName(String equName) {
+        this.equName = equName;
     }
 
     @Override

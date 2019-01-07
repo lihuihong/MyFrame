@@ -1,13 +1,10 @@
 package com.biye.sheji.dao;
 
-
 import com.biye.sheji.entity.FactoryEqu;
 
 import java.util.List;
 
 public interface FactoryEquMapper {
-
-
     /**
      * 根据主键删除设备信息
      * @param equId

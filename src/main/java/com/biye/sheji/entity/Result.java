@@ -10,59 +10,53 @@ import java.util.Map;
  */
 public class Result {
 
-    // code 状态码： 成功：000000，失败：111111
-    private String code;
-    // 错误信息
-    private String message;
-    // 返回的数据（链式）
-    private Map<String, Object> data = new HashMap<String, Object>();
+    // 状态标志，0表示成功，1表示失败
+    private int code;
+    // code说明，建议code为1时，返回 对应说明
+    private String msg;
 
-    public static Result success() {
-        Result result = new Result();
-        result.setCode("000000");
-        result.setMessage("成功!!!");
-        return result;
+    private int count;// 数据条数，
+    private Object data;// 数据列表
+
+    public Result() {
+        super();
     }
 
-    public static Result success(int code,String message) {
-        Result result = new Result();
-        result.setCode("000000");
-        result.setMessage("成功!!!");
-        return result;
+    public int getCount() {
+        return count;
     }
 
-    public static Result error(String string) {
-        Result result = new Result();
-        result.setCode("111111");
-        if (StringUtils.isEmpty(string)) {
-            result.setMessage("失败!!!");
-        } else {
-            result.setMessage(string);
-        }
-        return result;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public Result add(String key, Object value) {
-        this.getData().put(key, value);
-        return this;
-    }
-
-    public String getCode() {
+    public int getCode() {
         return code;
     }
-    public void setCode(String code) {
+
+    public void setCode(int code) {
         this.code = code;
     }
-    public String getMessage() {
-        return message;
+
+    public String getMsg() {
+        return msg;
     }
-    public void setMessage(String message) {
-        this.message = message;
+
+    public void setSuccessMsg(String msg) {
+        this.code = 0;
+        this.msg = msg;
     }
-    public Map<String, Object> getData() {
+
+    public void setErrorMsg(String msg) {
+        this.code = 1;
+        this.msg = msg;
+    }
+
+    public Object getData() {
         return data;
     }
-    public void setData(Map<String, Object> data) {
+
+    public void setData(Object data) {
         this.data = data;
     }
 }
