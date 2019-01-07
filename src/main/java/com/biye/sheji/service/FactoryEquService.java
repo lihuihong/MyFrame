@@ -2,7 +2,6 @@ package com.biye.sheji.service;
 
 import com.biye.sheji.dao.FactoryEquMapper;
 import com.biye.sheji.entity.FactoryEqu;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

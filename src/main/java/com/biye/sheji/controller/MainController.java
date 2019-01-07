@@ -64,15 +64,23 @@ public class MainController {
     }
 
     /**
-     * 单纯的页面跳转
-     *
-     * @param name
-     *            页面名称，即jsp文件名
+     * 设备管理编辑页面跳转
+     * @param
      * @return
      */
-    @RequestMapping(value = "/equ/{name}.action", method = RequestMethod.GET)
-    public String page(@PathVariable String name) {
-        return "/from"+name;
+    @RequestMapping(value = "/equ/equEdit.action", method = RequestMethod.GET)
+    public String equEdit() {
+        return "/from/equEdit";
+    }
+
+    /**
+     * 设备管理页面跳转
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/equ/equList.action", method = RequestMethod.GET)
+    public String equList() {
+        return "/equList";
     }
 
 

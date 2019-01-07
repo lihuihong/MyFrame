@@ -22,12 +22,13 @@
 <body>
 <form id="edit"  class="layui-form">
     <div style="padding: 20px; line-height: 24px;">
-        <input type="hidden" name="infoId" value="${data.infoId}">
+        <input type="hidden" name="infoId" value="${data.equId}">
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 150px;">设备名称</label>
             <div class="layui-input-inline">
-                <input type="text" name="equName" required lay-verify="required" class="layui-input"
-                       value="${data.equName}">
+
+                <%--<input type="text" name="equName" required lay-verify="required" class="layui-input"
+                       value="${data.equName}">--%>
             </div>
         </div>
         <div class="layui-form-item">
@@ -39,22 +40,34 @@
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 150px">设备是否报修</label>
             <div class="layui-input-inline">
-                <input type="text" name="equIspass" required lay-verify="required" class="layui-input"
-                       value="${data.equIspass}">
+                <%--<input type="text" name="equIspass" required lay-verify="required" class="layui-input"
+                       value="${data.equIspass}">--%>
+                    <select name="equIspass" lay-verify="required">
+                        <option value="0">未报修</option>
+                        <option value="1">已报修</option>
+                    </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 150px">设备是否报废</label>
             <div class="layui-input-inline">
-                <input type="text" name="infoNameAddress" required lay-verify="required" class="layui-input"
-                       value="${data.infoNameAddress}">
+                <%--<input type="text" name="infoNameAddress" required lay-verify="required" class="layui-input"
+                       value="${data.infoNameAddress}">--%>
+                    <select name="infoNameAddress" lay-verify="required">
+                        <option value="0">未报废</option>
+                        <option value="1">已报废</option>
+                    </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width: 150px">设备是否申请耗材</label>
             <div class="layui-input-inline">
-                <input type="text" name="equConsu" required lay-verify="required" class="layui-input"
-                       value="${data.equConsu}">
+                <%--<input type="text" name="equConsu" required lay-verify="required" class="layui-input"
+                       value="${data.equConsu}">--%>
+                    <select name="equConsu" lay-verify="required">
+                        <option value="0">未报修</option>
+                        <option value="1">已报修</option>
+                    </select>
             </div>
         </div>
     </div>
@@ -72,7 +85,7 @@
         form.on('submit(submit)',function(data){
             layer.confirm('是否确定提交？',{icon: 3, title:'系统信息'},function(index){
                 $.ajax({
-                    url:'/cardInfo/saveCardInfo.json',
+                    url:'/equ/equSaveOrEdit.json',
                     type:'post',
                     data:data.field,
                     closeBtn: 1,

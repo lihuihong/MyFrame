@@ -104,7 +104,7 @@
                 btnAlign: 'c',
                 anim: 0,
                 shade: [0.5, 'rgb(0,0,0)'],
-                content: '/equ/equSave.json',
+                content: '/equ/equEdit.action',
                 zIndex: layer.zIndex, //重点1
                 success: function(layero){
                     //layer.setTop(layero); //顶置窗口
