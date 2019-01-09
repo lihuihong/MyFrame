@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="/resources/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/resources/css/login.css" media="all">
     <title>用户管理</title>
-	<script type="text/javascript">
 
-	</script>
 </head>
 
 <body>
@@ -58,16 +56,25 @@
 <script src="/resources/layui/layui.js" charset="utf-8"></script>
 <script>
 
-    var data;
-    function child(d) {
-        data = d;
-        //alert(data);
-    }
 
     layui.use(['form','laydate'], function() {
         var form = layui.form;
         var $ = layui.jquery;
         var laydate = layui.laydate;
+
+
+        var data1 = parent.data;
+        //表单初始赋值
+        form.val('form',{
+            "id":data1.id
+            ,"userName":data1.userName
+            ,"password": data1.password
+            ,"trueName": data1.trueName
+            ,"email": data1.email
+            ,"phone": data1.phone
+            ,"roleId": data1.role.id
+        });
+        form.render();
 
         $.ajax({
             url:'/role/findAll',
@@ -88,19 +95,6 @@
                 }
             },
         });
-
-
-        //表单初始赋值
-        form.val('form', {
-            "id":data.id
-            ,"userName":data.userName
-            ,"password": data.password
-            ,"trueName": data.trueName
-            ,"email": data.email
-            ,"phone": data.phone
-            ,"roleId": data.role.id
-        });
-
 
         //监听提交
         form.on('submit(formDemo)', function(data){

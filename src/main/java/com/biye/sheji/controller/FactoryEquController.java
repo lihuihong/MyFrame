@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -20,12 +21,12 @@ public class FactoryEquController {
      * 查询所有设备信息
      * @return
      */
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/list")
+    @ResponseBody
     public Result list(Integer page, Integer limit ){
         List<FactoryEqu> list = factoryEquService.list();
         PageInfo<FactoryEqu> pageInfo = new PageInfo<>(list);
         Result result = new Result();
-
         if(pageInfo.getTotal() > 0){
             result.setSuccessMsg("获取成功");
             result.setData(pageInfo.getList());
@@ -43,7 +44,8 @@ public class FactoryEquController {
      * @param equId
      * @return
      */
-    @RequestMapping(value = "/equDel",method = RequestMethod.POST)
+    @RequestMapping(value = "/equDel")
+    @ResponseBody
     public Result equDel(int equId){
         Result result = new Result();
         int i = factoryEquService.deleteByPrimaryKey(equId);
@@ -59,7 +61,8 @@ public class FactoryEquController {
      * 根据主键更新或增加设备信息
      * @return
      */
-    @RequestMapping(value = "/equEditOrSave",method = RequestMethod.GET)
+    @RequestMapping(value = "/equEditOrSave")
+    @ResponseBody
     public Result equEditOrSave(FactoryEqu factoryEqu,HttpServletRequest request){
         //获取
         Result result = new Result();

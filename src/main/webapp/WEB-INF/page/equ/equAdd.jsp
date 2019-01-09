@@ -22,18 +22,18 @@
 <body>
 <form class="layui-form" lay-filter="form" style="padding: 20px 50px 20px 20px">
     <div class="layui-form-item">
-        <label class="layui-form-label">设备名称</label>
+        <label class="layui-form-label" style="width: 120px">设备名称</label>
         <div class="layui-input-inline">
             <input type="hidden" name="equId">
             <input type="text" name="equName" required lay-verify="required" placeholder="设备名称" autocomplete="off" class="layui-input">
         </div>
-        <label class="layui-form-label">设备描述</label>
+        <label class="layui-form-label" style="width: 120px">设备描述</label>
         <div class="layui-input-inline">
             <input type="text" name="equMark" required lay-verify="required" placeholder="请输入设备描述" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">设备是否报修</label>
+        <label class="layui-form-label" style="width: 120px">设备是否报修</label>
         <div class="layui-input-inline">
             <select name="equIspass" id="equIspassId" lay-verify="required">
                 <option value="0">未保修</option>
@@ -42,14 +42,14 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">设备是否报废</label>
+        <label class="layui-form-label" style="width: 120px">设备是否报废</label>
         <div class="layui-input-inline">
-            <select name="infoNameAddress" id="infoNameAddressId" lay-verify="required">
+            <select name="equIsok" id="equIsok" lay-verify="required">
                 <option value="0">未报废</option>
                 <option value="1">已报废</option>
             </select>
         </div>
-        <label class="layui-form-label">设备是否申请耗材</label>
+        <label class="layui-form-label" style="width: 120px">设备是否申请耗材</label>
         <div class="layui-input-inline">
             <select name="equConsu" id="equConsuId" lay-verify="required">
                 <option value="0">未申请耗材</option>
@@ -71,7 +71,7 @@
         var $ = layui.jquery;
         var layer = layui.layer;
         //监听提交
-        form.on('submit(submit)',function(data){
+        form.on('submit(formDemo)',function(data){
             layer.confirm('是否确定提交？',{icon: 3, title:'系统信息'},function(index){
                 $.ajax({
                     url:'/equ/equEditOrSave',

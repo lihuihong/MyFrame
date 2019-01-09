@@ -30,6 +30,9 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
+
+    var data;
+
     layui.use('table', function(){
         var table = layui.table;
         var $ = layui.jquery;
@@ -81,7 +84,7 @@
         $('.btnSearch').trigger('click');
         //监听工具条
         table.on('tool(demo)', function(obj){
-            var data = obj.data;
+            data = obj.data;
             if(obj.event === 'del'){
                 layer.confirm('用户：'+data.userName, {icon: 3, title:'是否确定删除?'}, function(index){
                     $.ajax({
@@ -119,9 +122,9 @@
                     zIndex: layer.zIndex, //重点1
                     success: function(layero,index){
                         // 获取子页面的iframe
-                        var iframe = window['layui-layer-iframe' + index];
+                        /*var iframe = window['layui-layer-iframe' + index];
                         // 向子页面的全局函数child传参
-                        iframe.child(data);
+                        iframe.child(data);*/
                     },
                     yes: function(index, layero){
                         //确认按钮
